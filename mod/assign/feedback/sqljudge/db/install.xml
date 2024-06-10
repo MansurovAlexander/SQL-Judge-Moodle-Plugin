@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/assign/feedback/sqljudge/db" VERSION="20220715" COMMENT="XMLDB file for Moodle mod/assign/feedback/sqljudge"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="assignment_sqlj" COMMENT="SQL Judge assignment">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="assignment" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timelimit" TYPE="int" LENGTH="5" NOTNULL="false" SEQUENCE="false" COMMENT="Time limit in seconds"/>
+        <FIELD NAME="testdb" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="checkscript" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="SQL script to check whether the task is done correctly"/>
+        <FIELD NAME="correctanswer" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Correct answer to the task"/>
+        <FIELD NAME="correctoutput" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Correct output generated from correct answer + check script"/>
+        <FIELD NAME="mustcontain" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Keywords that the answer must (not) contain"/>
+        <FIELD NAME="hint" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Hint to the students whose answer is incorrect"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="assignment" TYPE="foreign" FIELDS="assignment" REFTABLE="assign" REFFIELDS="id"/>
+        <KEY NAME="testdb" TYPE="foreign" FIELDS="testdb" REFTABLE="database_sqlj" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="assignment_sqlj_submission" COMMENT="SQL Judge submission">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="submission" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="status" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Judge status"/>
+        <FIELD NAME="output" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="DBMS output"/>
+        <FIELD NAME="testedon" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Time when the submission was tested"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="submission" TYPE="foreign" FIELDS="submission" REFTABLE="assign_submission" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

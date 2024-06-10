@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/sqljudge/db" VERSION="20220714" COMMENT="XMLDB file for Moodle local/sqljudge"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="database_sqlj" COMMENT="SQL Judge test database">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="dbms" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Database management system"/>
+        <FIELD NAME="dbcreationscript" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="SQL script of database creation"/>
+        <FIELD NAME="createdon" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Time of record creation"/>
+        <FIELD NAME="createdby" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="User who created the record"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="createdby" TYPE="foreign" FIELDS="createdby" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>
